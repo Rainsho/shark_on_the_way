@@ -15,9 +15,17 @@
 ## 操作系统
 
 * 使用过的 Linux 发行版本
+
   * Ubuntu (VPS 在用)
   * CentOS (VPS 在用)
   * Debian (Nexus 5 在用)
+
+  > 三者异同简单比较 [ref](https://blog.csdn.net/educast/article/details/38315433) :
+  >
+  > * Ubuntu 用户界面+ 硬件兼容性++ 软件源+ 社区技术+
+  > * CentOS 商用居多+ 文档+ 与 Redhat 同源 (借鉴其商业支持)
+  > * Debian 稳定++ 轻量+ 技术资料-
+
 * 日常使用的系统包括但不限于
   * macOS
   * Android
