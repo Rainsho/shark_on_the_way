@@ -3,8 +3,30 @@
 ## 编辑器
 
 * 熟悉环境
+
   * [x] 使用 VSCode 作为集成开发环境，搭配适当的扩展提升效率、保证质量 (e.g. ESLint | Prettier | Git History)
+
+  VSCode 交互式演练场：
+
+  |    command    |     macOS      | Win |
+  | :-----------: | :------------: | :-: |
+  | Square Select |      ⇧⌥⌘↓      |     |
+  | Square Select |    ⇧⌥Click     |     |
+  | Multi-Cursor  |      ⌥⌘↓       |     |
+  | Multi-Cursor  |     ⌥Click     |     |
+  |  Select All   |      ⇧⌥L       |     |
+  | IntelliSense  |     ^Space     |     |
+  |  Delete Line  |      ⇧⌘K       |     |
+  |    Rename     |       F2       |     |
+  | Format Select |     ⌘K ⌘F      |     |
+  |  Fold Level   | ⌘K ⌘0 \| ⌘K ⌘J |     |
+  | Jump To Error |       F8       |     |
+  | Jump To Line  |       ⌃G       |     |
+  |   Zen Mode    |      ⌘K Z      |     |
+  |  Delete Left  |   ⌘Backspace   |     |
+
   * [x] 使用 NPP 作为文本编辑工具，处理临时的信息存储或者脚本编辑
+
 * 进阶掌握
   * [ ] 学会熟练使用 vim 做到鼠标 free 的编程体验
 
@@ -46,6 +68,8 @@
 * 团队协作工具
 
   e.g. teambition
+
+* Google Keep
 
 ## 知识、订阅工具
 
