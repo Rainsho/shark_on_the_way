@@ -10,6 +10,26 @@
 
 ## 跨域
 
+> CORS 是一个 W3C 标准，全称是"跨域资源共享"（Cross-origin resource sharing）。CORS 需要浏览器和服务器同时支持。**有时还会多出一次附加的请求，但用户不会有感觉。**
+
+- 请求流程
+
+头信息添加 `Origin` 字段，服务器返回 `Access-Control-Allow-Origin` 头，浏览器进行验证(抛 `XMLHttpRequest` 错误，状态可能是 200)。
+
+非简单请求会进行预检 `OPTIONS` 请求 e.g. `PUT` | `DELETE` 或者 `Content-Type` 为 `application/json`。(JSONP 只支持 `GET` 请求)
+
+- 常见方式 (已 koa 为例)
+
+```js
+// CROS
+ctx.set('Access-Control-Allow-Origin', '*');
+ctx.body = { hello: 'world' };
+
+// JSONP
+const { callback } = ctx.query;
+ctx.body = `${callback}({ hello : 'world' })`;
+```
+
 ## Gzip
 
 ## 节点缓存
