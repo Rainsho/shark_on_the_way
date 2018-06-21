@@ -8,22 +8,26 @@
 
   VSCode 交互式演练场：
 
-  |    command    |     macOS      | Win |
-  | :-----------: | :------------: | :-: |
-  | Square Select |      ⇧⌥⌘↓      |     |
-  | Square Select |    ⇧⌥Click     |     |
-  | Multi-Cursor  |      ⌥⌘↓       |     |
-  | Multi-Cursor  |     ⌥Click     |     |
-  |  Select All   |      ⇧⌥L       |     |
-  | IntelliSense  |     ^Space     |     |
-  |  Delete Line  |      ⇧⌘K       |     |
-  |    Rename     |       F2       |     |
-  | Format Select |     ⌘K ⌘F      |     |
-  |  Fold Level   | ⌘K ⌘0 \| ⌘K ⌘J |     |
-  | Jump To Error |       F8       |     |
-  | Jump To Line  |       ⌃G       |     |
-  |   Zen Mode    |      ⌘K Z      |     |
-  |  Delete Left  |   ⌘Backspace   |     |
+  |    command    |     macOS      |       Win       |
+  | :-----------: | :------------: | :-------------: |
+  | Square Select |      ⇧⌥⌘↓      |                 |
+  | Square Select |    ⇧⌥Click     |                 |
+  | Multi-Cursor  |      ⌥⌘↓       |                 |
+  | Multi-Cursor  |     ⌥Click     |                 |
+  |  Select All   |      ⇧⌥L       |                 |
+  | IntelliSense  |     ^Space     |                 |
+  |  Delete Line  |      ⇧⌘K       |  Ctrl Shift K   |
+  |    Rename     |       F2       |                 |
+  | Format Select |     ⌘K ⌘F      |                 |
+  |  Fold Level   | ⌘K ⌘0 \| ⌘K ⌘J |                 |
+  | Jump To Error |       F8       |                 |
+  | Jump To Line  |       ⌃G       |                 |
+  |   Zen Mode    |      ⌘K Z      |                 |
+  |  Delete Left  |   ⌘Backspace   |                 |
+  |               |                |  Ctrl Shift \   |
+  |               |                | Ctrl Shift [\|] |
+  |               |                |   Ctrl K F12    |
+  |               |                |    Shift F12    |
 
   - [x] 使用 NPP 作为文本编辑工具，处理临时的信息存储或者脚本编辑
 
