@@ -63,7 +63,7 @@
   1.  配置 `.dockerignore` 文件
   2.  配置 `Dockerfile` 文件
 
-  ```
+  ```Dockerfile
   FROM node:8.4
   COPY . /app
   WORKDIR /app
@@ -94,7 +94,7 @@
   - `it` 容器的 Shell 映射到当前的 Shell
   - `koa-demo` image
   - `/bin/bash` 容器启动后执行的命令 (启动 Bash)
-  - `-rm` 运行后自动删除
+  - `--rm` 运行后自动删除
 
   5.  CMD 命令
 
@@ -125,4 +125,142 @@
   $ docker container exec -it [containerID] /bin/bash
   # 从 docker 内部拷贝文件
   $ docker container cp [containID]:[/path/to/file] .
+  ```
+
+## 实例
+
+- 自建 WordPress 容器
+
+  1.  PHP image
+
+  ```bash
+  $ docker container run \
+    --rm \
+    --name wordpress \
+    --volume "$PWD/":/var/www/html \
+    php:5.6-apache
+  ```
+
+  - `--name wordpress` 容器的名字叫做 wordpress
+  - `--volume "$PWD/":/var/www/html` 将当前目录映射到容器的 `/var/www/html`
+  - `php:5.6-apache` PHP 5.6，并且自带 Apache 服务器
+
+  **注意配置 Nginx 转发至内网地址。**
+
+  2.  WordPress 安装包
+
+  ```bash
+  $ wget https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+  $ tar -xvf wordpress-4.9.4-zh_CN.tar.gz
+  ```
+
+  3.  MySQL 容器
+
+  ```bash
+  $ docker container run \
+    -d \
+    --rm \
+    --name wordpressdb \
+    --env MYSQL_ROOT_PASSWORD=123456 \
+    --env MYSQL_DATABASE=wordpress \
+    mysql:5.7
+  ```
+
+  - `-d` 容器启动后，在后台运行
+  - `--env MYSQL_ROOT_PASSWORD=123456` 向容器进程传入一个环境变量 `MYSQL_ROOT_PASSWORD`，作为 MySQL 的根密码
+
+  4.  定制 PHP 容器
+
+  将 WordPress 容器连接到 MySQL 容器。(在原 PHP image 基础上安装 `mysqli` 扩展)
+
+  ```Dockerfile
+  FROM php:5.6-apache
+  RUN docker-php-ext-install mysqli
+  CMD apache2-foreground
+  ```
+
+  ```bash
+  $ docker build -t phpwithmysql .
+  ```
+
+  5.  Wordpress 容器连接 MySQL 容器
+
+  ```bash
+  $ docker container run \
+    --rm \
+    --name wordpress \
+    --volume "$PWD/":/var/www/html \
+    --link wordpressdb:mysql \
+    phpwithmysql
+  ```
+
+  - `--link wordpressdb:mysql` WordPress 容器要连到 `wordpressdb` 容器，别名是 mysql
+
+  **注意 `wordpress` 目录权限。**
+
+- 官方的 WordPress 容器
+
+  1.  启动容器
+
+  `mysql` 同上，`wordpress` 启动后通过 `logs` 或 `inspect` 查看 `IPAddress`。
+
+  ```bash
+  $ docker container run \
+    -d \
+    --rm \
+    --name wordpress \
+    --env WORDPRESS_DB_PASSWORD=123456 \
+    --link wordpressdb:mysql \
+    wordpress
+  ```
+
+  2.  WordPress 容器的定制
+
+  ```bash
+  $ docker container run \
+    -d \
+    -p 127.0.0.2:9999:80 \
+    --rm \
+    --name wordpress \
+    --env WORDPRESS_DB_PASSWORD=123456 \
+    --link wordpressdb:mysql \
+    --volume "$PWD/wordpress":/var/www/html \
+    wordpress
+  ```
+
+  - `-p 127.0.0.2:9999:80` 将容器的 80 端口映射到 127.0.0.2 的 9999 端口
+
+- Docker Compose
+
+  1.  安装
+
+  使用最新版的，不要直接 `apt-get`。[官方文档](https://docs.docker.com/compose/install/#install-compose)
+
+  ```bash
+  # 常用命令
+  $ docker-compose --version
+  $ docker-compose up
+  $ docker-compose stop
+  $ docker-compose rm
+  ```
+
+  2.  `docker-compose.yml`
+
+  ```yml
+  mysql:
+      image: mysql:5.7
+      environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=wordpress
+  web:
+      image: wordpress
+      links:
+      - mysql
+      environment:
+      - WORDPRESS_DB_PASSWORD=123456
+      ports:
+      - "127.0.0.1:8080:80"
+      working_dir: /var/www/html
+      volumes:
+      - wordpress:/var/www/html
   ```
